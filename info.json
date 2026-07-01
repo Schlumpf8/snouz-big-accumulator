@@ -4,7 +4,7 @@
   "title": "Big accumulator",
   "author": "snouz",
   "homepage": "https://github.com/snouz/snouz-big-accumulator",
-  "factorio_version": "2.0",
+  "factorio_version": "2.1",
   "description": "This mod adds an accumulator 60x more potent the normal one. ",
   "dependencies": [
     "base",
