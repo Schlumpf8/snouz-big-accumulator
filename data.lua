@@ -6,6 +6,14 @@ local sounds = require ("__base__.prototypes.entity.sounds")
 local graphics = "__snouz-big-accumulator__/graphics"
 local ENTITYPATH = graphics .. "/entity/"
 
+local multiplier = 6
+if settings.startup["big-accumulator-multiplier-percent"] and settings.startup["big-accumulator-multiplier-percent"].value then
+  multiplier = settings.startup["big-accumulator-multiplier-percent"].value / 100
+end
+local area = 4 --4 times the size
+local animation_speed = 0.3
+
+
 function big_accumulator_picture(tint, repeat_count)
     return
     {
@@ -18,8 +26,9 @@ function big_accumulator_picture(tint, repeat_count)
             height = 362,
             scale = 0.5,
             repeat_count = repeat_count,
-            tint = tint,
+            --tint = tint,
             shift = {0, -0.6},
+            animation_speed = 0.3,
         },
         {
             filename = ENTITYPATH .. "big-accumulator_shadow.png",
@@ -30,6 +39,7 @@ function big_accumulator_picture(tint, repeat_count)
             shift = {1, 0},
             scale = 0.5,
             draw_as_shadow = true,
+            animation_speed = animation_speed,
         }
       }
     }
@@ -52,7 +62,8 @@ function big_accumulator_picture(tint, repeat_count)
             draw_as_glow = true,
             shift = {0, -0.6},
             scale = 0.5,
-            animation_speed = 0.3,
+            animation_speed = animation_speed,
+            blend_mode = "additive",
         }
       }
     }
@@ -92,7 +103,8 @@ function big_accumulator_picture(tint, repeat_count)
             draw_as_glow = true,
             shift = {0, -0.6},
             scale = 0.5,
-            animation_speed = 0.4,
+            animation_speed = animation_speed,
+            blend_mode = "additive",
         }
       }
     }
@@ -122,11 +134,11 @@ data:extend(
     enabled = false,
     ingredients =
     {
-      {type = "item", name = "accumulator", amount = 60},
-      {type = "item", name = "copper-cable", amount = 50},
-      {type = "item", name = "concrete", amount = 200}
+      {type = "item", name = "accumulator", amount = math.ceil(1 * area * multiplier)},
+      {type = "item", name = "copper-cable", amount = math.ceil(0.833 * area * multiplier)},
+      {type = "item", name = "concrete", amount = math.ceil(3.333 * area * multiplier)}
     },
-    results = {{type="item", name="big-accumulator", amount = 1}}
+    results = {{type = "item", name = "big-accumulator", amount = 1}}
   },
 
   {
@@ -142,7 +154,7 @@ data:extend(
         recipe = "big-accumulator"
       }
     },
-    prerequisites = {"utility-science-pack","electric-energy-accumulators","concrete","electric-energy-distribution-2"},
+    prerequisites = {"utility-science-pack", "electric-energy-accumulators", "concrete", "electric-energy-distribution-2"},
     unit =
     {
       count = 650,
@@ -166,7 +178,7 @@ data:extend(
     flags = {"placeable-neutral", "player-creation"},
     minable = {hardness = 0.2, mining_time = 0.5, result = "big-accumulator"},
     fast_replaceable_group = "big-accumulator",
-    max_health = 500,
+    max_health = 110,
     corpse = "big-accumulator-remnants",
     dying_explosion = "accumulator-explosion",
     collision_box = {{-1.75, -1.75}, {1.75, 1.75}},
@@ -181,14 +193,13 @@ data:extend(
       input_flow_limit = "300kW",
       output_flow_limit = "300kW"
     },]]--
-    
-  energy_source = {
-    type = "electric",
-    buffer_capacity = "300MJ",
-    usage_priority = "tertiary",
-    input_flow_limit = "20MW",
-    output_flow_limit = "20MW"
-  },
+    energy_source = {
+      type = "electric",
+      buffer_capacity = math.ceil(5 * area * multiplier) .. "MJ",
+      usage_priority = "tertiary",
+      input_flow_limit = math.ceil(300 * area * multiplier) .. "kW",
+      output_flow_limit = math.ceil(300 * area * multiplier) .. "kW",
+    },
     chargable_graphics =
     {
       picture = big_accumulator_picture(),
@@ -267,6 +278,6 @@ data:extend(
 if mods["space-age"] then
   table.insert(data.raw["technology"]["electric-energy-big-accumulators"].prerequisites, "electromagnetic-science-pack")
   table.insert(data.raw["technology"]["electric-energy-big-accumulators"].unit.ingredients, {"electromagnetic-science-pack", 1})
-  table.insert(data.raw["recipe"]["big-accumulator"].ingredients, {type = "item", name = "supercapacitor", amount = 10})
+  table.insert(data.raw["recipe"]["big-accumulator"].ingredients, {type = "item", name = "supercapacitor", amount = math.ceil(0.166 * area * multiplier)})
 end
   

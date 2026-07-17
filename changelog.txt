@@ -1,4 +1,19 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.0
+Date: 2026-07-16
+  Graphics:
+    - Reworked accumulator graphics and animation
+  Bugfixes:
+    - Fixed setting not working
+---------------------------------------------------------------------------------------------------
+Version: 1.1.0
+Date: 2026-07-16
+  Balancing:
+    - Nerfed accumulator space efficiency to 6x more space efficient (from 15x)(by default)
+    - Added a startup setting to let you change the efficiency value
+    - Adjusted recipe cost to the new setting and the new default value
+    - Changed health from 500 to 110 as a tradeoff (makes it more brittle than the normal accumulator's 150hp)
+---------------------------------------------------------------------------------------------------
 Version: 1.0.6
 Date: 2026-06-23
   Info:

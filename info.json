@@ -1,11 +1,11 @@
 {
   "name": "snouz-big-accumulator",
-  "version": "1.0.6",
+  "version": "1.2.0",
   "title": "Big accumulator",
   "author": "snouz",
   "homepage": "https://github.com/snouz/snouz-big-accumulator",
   "factorio_version": "2.1",
-  "description": "This mod adds an accumulator 60x more potent the normal one. ",
+  "description": "This mod adds a configurable 4x4 accumulator 24x more potent the normal one (and 6 times more space efficient)",
   "dependencies": [
     "base",
     "? space-age"
